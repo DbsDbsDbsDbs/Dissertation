@@ -1,0 +1,696 @@
+Manager:
+    id: manager
+    LogInPage:
+    SignUpPage:
+    MainPage:
+    PostPage:
+    MyProfile:
+    AddPost:
+    UserProfile:
+<LogInPage>
+    name : "login"
+    email1:email1
+    password1:password1
+    MDCard:
+        id: mainCard
+        orientation: "vertical"
+        pos_hint:{"center_x":0.5, "center_y": .5}
+        padding: [50, 0, 50, 0 ]
+        spacing: 15
+        BoxLayout:
+            orientation: "vertical"
+
+
+            MDLabel:
+                text: "ArchBit"
+                text_size: self.size
+                font_size:45
+                bold:True
+                halign: "center"
+                valign:"center"
+
+            MDLabel:
+                text:"[color=00FF00]SIGN IN"
+                text_size: self.size
+                bold:True
+                markup:True
+                halign: "center"
+                valign:"center"
+            MDTextField:
+                id: email1
+                hint_text: "email"
+            MDTextField:
+                id : password1
+                hint_text: "password"
+                password: True
+            MDFillRoundFlatButton:
+                text:"Sign in"
+                pos_hint:{"center_x":0.5}
+                on_release:
+                    if root.verify_login(): root.manager.current = "mainpage"
+            MDRectangleFlatButton:
+                text:"Sign up"
+                pos_hint:{"center_x":0.5}
+                on_release:
+                    root.manager.current = "signup"
+                    root.manager.transition.direction = "left"
+<SignUpPage>:
+    name : "signup"
+    email2:email2
+    password2:password2
+    MDCard:
+        id: secondCard
+        orientation: "vertical"
+        pos_hint:{"center_x":.5, "center_y": .5}
+        padding: [15, 0, 15, 0 ]
+        spacing: 15
+        BoxLayout:
+            orientation: "vertical"
+
+
+            MDLabel:
+                text: "ArchBit"
+                text_size: self.size
+                font_size:45
+                bold:True
+                halign: "center"
+                valign:"center"
+
+            MDLabel:
+                text:"[color=00FF00]SIGN UP"
+                text_size: self.size
+                bold:True
+                markup:True
+                halign: "center"
+                valign:"center"
+            MDTextField:
+                id: email2
+                hint_text: "email"
+            MDTextField:
+                id : password2
+                hint_text: "password"
+                password: True
+            MDFillRoundFlatButton:
+                text:"Sign up"
+                pos_hint:{"center_x":0.5}
+                on_release:
+                    root.check_signup()
+            MDRectangleFlatButton:
+                text:"Back to log in"
+                pos_hint:{"center_x":0.5}
+                on_release:
+                    root.manager.current = "login"
+                    root.manager.transition.direction = "left"
+
+<MainPage>
+    id:mainpage
+    NavigationLayout:
+        ScreenManager:
+            Screen:
+                BoxLayout:
+                    orientation : 'vertical'
+                    MDToolbar:
+                        title : ''
+                        canvas:
+                            Rectangle:
+                                source: 'C:/Users/dbsda/OneDrive/Desktop/Scoala/Final/logo.png'
+                                pos: (((self.parent.size[0])/2)-30,self.pos[1])
+                                size: (60, 60)
+                        left_action_items :[["menu", lambda x: nav_drawer.toggle_nav_drawer()]]
+                        elevation:10
+                    ScrollView:
+                        do_scroll_x: False
+                        do_scroll_y: True
+                        GridLayout:
+                            size_hint_y: None
+                            height: self.minimum_height
+                            cols : 1
+                            spacing : '1dp'
+                            padding : '1dp'
+                            row_default_height : 200
+
+                            MDCard:
+                                orientation: 'vertical'
+                                canvas:
+                                    Color:
+                                        rgba: 0.8, 0.898, 1, 1
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                                size_hint_y : 1
+                                BoxLayout:
+                                    orientation:'vertical'
+                                    size_hint_y:0.3
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.5, "y":.7}
+                                    canvas:
+                                        Color:
+                                            rgba: 0.6, 0.7, 1, 1
+                                        Rectangle:
+                                            size: self.size
+                                            pos: self.pos
+                                    MDLabel:
+                                        text: " Title"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        bold:True
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.93}
+                                    MDLabel:
+                                        text: "Author name"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.85}
+                                MDLabel:
+                                    text: "Summary"
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.87}
+                                MDFillRoundFlatButton:
+                                    text: "See article"
+                                    on_release:
+                                        root.manager.current = "postpage"
+                            MDCard:
+                                orientation: 'vertical'
+                                canvas:
+                                    Color:
+                                        rgba: 0.8, 0.898, 1, 1
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                                size_hint_y : 1
+                                BoxLayout:
+                                    orientation:'vertical'
+                                    size_hint_y:0.3
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.5, "y":.7}
+                                    canvas:
+                                        Color:
+                                            rgba: 0.6, 0.7, 1, 1
+                                        Rectangle:
+                                            size: self.size
+                                            pos: self.pos
+                                    MDLabel:
+                                        text: " Title"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        bold:True
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.93}
+                                    MDLabel:
+                                        text: "Author name"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.85}
+                                MDLabel:
+                                    text: "Summary"
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.87}
+                                MDFillRoundFlatButton:
+                                    text: "See article"
+                                    on_release:
+                                        root.manager.current = "postpage"
+                            MDCard:
+                                orientation: 'vertical'
+                                canvas:
+                                    Color:
+                                        rgba: 0.8, 0.898, 1, 1
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                                size_hint_y : 1
+                                BoxLayout:
+                                    orientation:'vertical'
+                                    size_hint_y:0.3
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.5, "y":.7}
+                                    canvas:
+                                        Color:
+                                            rgba: 0.6, 0.7, 1, 1
+                                        Rectangle:
+                                            size: self.size
+                                            pos: self.pos
+                                    MDLabel:
+                                        text: " Title"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        bold:True
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.93}
+                                    MDLabel:
+                                        text: "Author name"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.85}
+                                MDLabel:
+                                    text: "Summary"
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.87}
+                                MDFillRoundFlatButton:
+                                    text: "See article"
+                                    on_release:
+                                        root.manager.current = "postpage"
+                            MDCard:
+                                orientation: 'vertical'
+                                canvas:
+                                    Color:
+                                        rgba: 0.8, 0.898, 1, 1
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                                size_hint_y : 1
+                                BoxLayout:
+                                    orientation:'vertical'
+                                    size_hint_y:0.3
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.5, "y":.7}
+                                    canvas:
+                                        Color:
+                                            rgba: 0.6, 0.7, 1, 1
+                                        Rectangle:
+                                            size: self.size
+                                            pos: self.pos
+                                    MDLabel:
+                                        text: " Title"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        bold:True
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.93}
+                                    MDLabel:
+                                        text: "Author name"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.85}
+                                MDLabel:
+                                    text: "Summary"
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.87}
+                                MDFillRoundFlatButton:
+                                    text: "See article"
+                                    on_release:
+                                        root.manager.current = "postpage"
+                            MDCard:
+                                orientation: 'vertical'
+                                canvas:
+                                    Color:
+                                        rgba: 0.8, 0.898, 1, 1
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                                size_hint_y : 1
+                                BoxLayout:
+                                    orientation:'vertical'
+                                    size_hint_y:0.3
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.5, "y":.7}
+                                    canvas:
+                                        Color:
+                                            rgba: 0.6, 0.7, 1, 1
+                                        Rectangle:
+                                            size: self.size
+                                            pos: self.pos
+                                    MDLabel:
+                                        text: " Title"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        bold:True
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.93}
+                                    MDLabel:
+                                        text: "Author name"
+                                        font_style : "Subtitle1"
+                                        size_hint_y:None
+                                        height: self.texture_size[1]
+                                        pos_hint:{"center_x":.85}
+                                MDLabel:
+                                    text: "Summary"
+                                    size_hint_x:1
+                                    pos_hint:{"center_x":.87}
+                                MDFillRoundFlatButton:
+                                    text: "See article"
+                                    on_release:
+                                        root.manager.current = "postpage"
+
+
+
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            BoxLayout:
+                orientation : 'vertical'
+                spacing : '8dp'
+                padding: '8dp'
+                Image:
+                    source:"C:/Users/dbsda/OneDrive/Desktop/Scoala/Final/mypicture.png"
+                    size_hint_y:0.7
+                MDLabel:
+                    text: "                  Daniel Dobos"
+                    font_style : "Subtitle1"
+                    size_hint_y:None
+                    height: self.texture_size[1]
+                MDLabel:
+                    text: "            dbs.daniel99@gmail.com"
+                    font_style : "Subtitle1"
+                    size_hint_y:None
+                    height: self.texture_size[1]
+                ScrollView:
+                    MDList:
+                        OneLineIconListItem:
+                            text: "Your Profile"
+                            on_release:
+                                root.manager.current = "myprofile"
+                            IconLeftWidget:
+                                icon: 'face-profile'
+                        OneLineIconListItem:
+                            text: "Chat"
+                            on_release:
+                                root.manager.current = "signup"
+                            IconLeftWidget:
+                                icon: 'chat'
+                        OneLineIconListItem:
+                            text: "Sign out"
+                            on_release:
+                                root.manager.current = "login"
+                            IconLeftWidget:
+                                icon: 'exit-to-app'
+
+<MyProfile>
+    id:myprofile
+    canvas:
+        Color:
+            rgba: 0.8, 0.898, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+
+        orientation : "horizontal"
+        size_hint_y : 0.1
+        size_hint_x : 1
+        pos_hint:{"center_x":.5, "y": .9}
+        canvas:
+            Color:
+                rgba: 0.82, 0.96, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDIconButton:
+
+
+            icon: "keyboard-backspace"
+            on_release:
+                root.manager.current = "mainpage"
+                root.manager.transition.direction = "right"
+
+        MDLabel:
+            text : "View/Edit your profile"
+            font_size:20
+            bold:True
+            pos_hint : {"center_x" : 0.5}
+    Image:
+        source:"C:/Users/dbsda/OneDrive/Desktop/Scoala/Final/mypicture.png"
+        size_hint_x:0.3
+        size_hint_y:0.9
+        pos_hint:{"y":0.3, "x":0.1}
+    MDRectangleFlatButton:
+        text:"Change profile picture"
+        pos_hint:{"y":0.55, "x":0.04}
+    GridLayout:
+        cols:2
+        size_hint_x:0.45
+        size_hint_y:0.3
+        pos_hint:{"y":0.55, "x":0.5}
+        canvas:
+            Color:
+                rgba: 0.5, 0.6, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDLabel:
+            text : "Name"
+            font_size:16
+        MDIconButton:
+            icon:'settings-outline'
+        MDLabel:
+            text : "Email"
+            font_size:16
+        MDIconButton:
+            icon:'settings-outline'
+        MDLabel:
+            text : "Password"
+            font_size:16
+        MDIconButton:
+            icon:'settings-outline'
+    MDFillRoundFlatButton:
+        text: "Add post"
+        pos_hint:{"center_y":0.5, "center_x":0.5}
+        on_release:
+            root.manager.current="addpost"
+    MDLabel:
+        text: "Post History:"
+        font_size:18
+        bold:True
+        pos_hint:{"center_y":0.45, "center_x":0.5}
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        size_hint : 1, 0.4
+        pos_hint : {"y" : 0}
+        GridLayout:
+            size_hint_y: None
+            height: self.minimum_height
+            cols : 1
+            spacing : '1dp'
+            padding : '1dp'
+            row_default_height : 50
+            MDCard:
+
+                canvas:
+                    Color:
+                        rgba: 0.7, 0.898, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                size_hint_y : 1
+                height: self.minimum_height
+                BoxLayout:
+                    orientation:'horizontal'
+                    MDLabel:
+                        text:"Title"
+                        size_hint_x:0.5
+
+                    MDRectangleFlatButton:
+                        text:"Delete post"
+                        pos_hint:{"center_x":0.5, "center_y":0.5}
+            MDCard:
+
+                canvas:
+                    Color:
+                        rgba: 0.7, 0.898, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                size_hint_y : 1
+                height: self.minimum_height
+                BoxLayout:
+                    orientation:'horizontal'
+                    MDLabel:
+                        text:"Title"
+                        size_hint_x:0.5
+
+                    MDRectangleFlatButton:
+                        text:"Delete post"
+                        pos_hint:{"center_x":0.5, "center_y":0.5}
+            MDCard:
+
+                canvas:
+                    Color:
+                        rgba: 0.7, 0.898, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                size_hint_y : 1
+                height: self.minimum_height
+                BoxLayout:
+                    orientation:'horizontal'
+                    MDLabel:
+                        text:"Title"
+                        size_hint_x:0.5
+
+                    MDRectangleFlatButton:
+                        text:"Delete post"
+                        pos_hint:{"center_x":0.5, "center_y":0.5}
+            MDCard:
+
+                canvas:
+                    Color:
+                        rgba: 0.7, 0.898, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                size_hint_y : 1
+                height: self.minimum_height
+                BoxLayout:
+                    orientation:'horizontal'
+                    MDLabel:
+                        text:"Title"
+                        size_hint_x:0.5
+
+                    MDRectangleFlatButton:
+                        text:"Delete post"
+                        pos_hint:{"center_x":0.5, "center_y":0.5}
+            MDCard:
+
+                canvas:
+                    Color:
+                        rgba: 0.7, 0.898, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                size_hint_y : 1
+                height: self.minimum_height
+                BoxLayout:
+                    orientation:'horizontal'
+                    MDLabel:
+                        text:"Title"
+                        size_hint_x:0.5
+
+                    MDRectangleFlatButton:
+                        text:"Delete post"
+                        pos_hint:{"center_x":0.5, "center_y":0.5}
+<AddPost>
+    id:addpost
+    canvas:
+        Color:
+            rgba: 0.8, 0.898, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+
+        orientation : "horizontal"
+        size_hint_y : 0.1
+        size_hint_x : 1
+        pos_hint:{"center_x":.5, "y": .9}
+        canvas:
+            Color:
+                rgba: 0.82, 0.96, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDIconButton:
+
+
+            icon: "keyboard-backspace"
+            on_release:
+                root.manager.current = "myprofile"
+                root.manager.transition.direction = "right"
+
+        MDLabel:
+            text : "Create article"
+            font_size:20
+            bold:True
+            pos_hint : {"center_x" : 0.5}
+        MDFillRoundFlatButton:
+            text: "Add post"
+            pos_hint:{"center_y":0.5, "center_x":0.5}
+    MDLabel:
+        text:"Title:"
+        font_size:18
+        pos_hint:{"center_y":0.85, "center_x":0.6}
+    MDTextField:
+        mode: "rectangle"
+        size_hint:0.4, 0.1
+        pos_hint:{"center_y":0.75, "center_x":0.5}
+    MDLabel:
+        text:"Summary:"
+        font_size:18
+        pos_hint:{"center_y":0.65, "center_x":0.6}
+    MDTextField:
+        multiline:True
+        mode: "rectangle"
+        size_hint:0.7, 0.25
+        pos_hint:{"center_y":0.47, "center_x":0.5}
+    MDRectangleFlatButton:
+        text:"Upload PDF document"
+        pos_hint:{"center_x":0.5, "center_y":0.25}
+<PostPage>
+    id:postpage
+    canvas:
+        Color:
+            rgba: 0.8, 0.898, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+
+        orientation : "horizontal"
+        size_hint_y : 0.1
+        size_hint_x : 1
+        pos_hint:{"center_x":.5, "y": .9}
+        canvas:
+            Color:
+                rgba: 0.82, 0.96, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDIconButton:
+
+
+            icon: "keyboard-backspace"
+            on_release:
+                root.manager.current = "mainpage"
+                root.manager.transition.direction = "right"
+
+        MDLabel:
+            text : "Author name"
+            font_size:20
+            bold:True
+            pos_hint : {"center_x" : 0.5}
+        MDFillRoundFlatButton:
+            text: "See profile"
+            pos_hint : {"center_y" : 0.5}
+    MDLabel:
+        text:"Title"
+        font_size:20
+        pos_hint:{"center_x":0.95,"center_y":0.85}
+    ScrollView:
+        pos_hint : {"y":-0.2, "center_x":0.5}
+        MDLabel:
+            text : "Summary"
+            font_style : 'Subtitle1'
+            font_size:20
+            size_hint_y : 0.6
+            size_hint_x : 1
+            halign : "center"
+            pos_hint : {"center_y":0.65, "center_x":0.5}
+            canvas.before:
+                Color:
+                    rgba: 0.6, 0.9, 1, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+    MDFillRoundFlatButton:
+        text: "Download PDF article"
+        pos_hint : {"center_y":0.15, "center_x":0.5}
+
+
+
+
+
+
+
+
